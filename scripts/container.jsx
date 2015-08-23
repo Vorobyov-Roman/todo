@@ -1,7 +1,7 @@
 var Container = React.createClass({
 	render: function() {
 		return(
-			<div></div>
+			<div className="well my-holder"></div>
 		);
 	}
 });
