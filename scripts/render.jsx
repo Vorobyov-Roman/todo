@@ -1,5 +1,5 @@
 React.render(
-	<AddTodoItem>
-	</AddTodoItem>,
+	<Container>
+	</Container>,
 	document.getElementById('app')
 );
