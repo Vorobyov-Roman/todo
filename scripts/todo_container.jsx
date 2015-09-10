@@ -10,7 +10,7 @@ var Container = React.createClass({
     render: function() {
         items = [];
         model.todos.forEach(function(item) {
-            items.push(<TodoItem todoID={ item.id }>{ item.text }</TodoItem>);
+            items.push(<TodoItem key={ item.id }>{ item.text }</TodoItem>);
         });
 
         return(

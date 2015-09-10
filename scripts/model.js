@@ -15,9 +15,7 @@ var Model = {
     },
     pop: function(id) {
         var item = this.find(id);
-        if (item) {
-            this.todos.splice(this.todos.indexOf(item), 1);
-        }
+        item && this.todos.splice(this.todos.indexOf(item), 1);
     },
     check: function(id) {
         return this.find(id) !== null;
