@@ -1,16 +1,16 @@
 var TodoItem = React.createClass({
-    getInitialState: function() {
-        return { id: this.props.key, status: false };
-    },
     onClick: function() {
-        this.setState({ status: !this.state.status });
+        console.log(this.props);
+        this.props.model.check();
+        this.props.onCheck();
     },
     render: function() {
         return(
-            <li
-                className={ "list-group-item" + (this.state.status ? " active" : "") }
-                onClick={ this.onClick }
-            >{ this.props.children }</li>
+            <a href="#" className="list-group-item" onClick={ this.onClick }>
+                <span className={ this.props.model.status ? "my-todo-checked" : "" }>
+                    { this.props.model.text }
+                </span>
+            </a>
         )
     }
 });

@@ -1,23 +1,39 @@
-#include('model.js');
-#include('todo_item.jsx');
-#include('todo_input.jsx');
+@include('todo_item.jsx');
+@include('todo_input.jsx');
 
 var Container = React.createClass({
     addItem: function(text) {
-        model.push(text);
+        this.props.model.push(text);
+        this.forceUpdate();
+    },
+    onCheck: function() {
         this.forceUpdate();
     },
     render: function() {
-        items = [];
-        model.todos.forEach(function(item) {
-            items.push(<TodoItem key={ item.id }>{ item.text }</TodoItem>);
+        var onStatusChange = this.onCheck;
+        var items = {
+            done: [],
+            pending: []
+        };
+
+        this.props.model.todos.forEach(function(item) {
+            items[item.status ? "done" : "pending"].push(
+                <TodoItem
+                    model={ item }
+                    onCheck={ onStatusChange }
+                    key={ item.id }
+                ></TodoItem>
+            );
         });
 
         return(
             <div className="well my-holder">
-                <ul className="list-group">
-                    { items }
-                </ul>
+                <div className="list-group">
+                    { items.pending }
+                </div>
+                <div className="list-group">
+                    { items.done }
+                </div>
                 <Input onSubmit={ this.addItem }></Input>
             </div>
         );

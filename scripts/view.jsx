@@ -1,6 +1,7 @@
-#include('todo_container.jsx');
+@include('model.js');
+@include('todo_container.jsx');
 
 React.render(
-    <Container></Container>,
+    <Container model={ model }></Container>,
     document.getElementById('app')
 );

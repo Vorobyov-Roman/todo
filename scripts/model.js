@@ -1,3 +1,12 @@
+function Todo(text, id, status) {
+    this.text = text;
+    this.id = id;
+    this.status = status;
+}
+Todo.prototype.check = function() {
+    this.status = !this.status;
+}
+
 var Model = {
     id: 0,
     find: function(id) {
@@ -8,10 +17,7 @@ var Model = {
         return null;
     },
     push: function(text) {
-        this.todos.push({
-            text: text,
-            id: ++this.id
-        });
+        this.todos.push(new Todo(text, ++this.id, false));
     },
     pop: function(id) {
         var item = this.find(id);
@@ -25,3 +31,7 @@ var Model = {
 var model = Object.create(Model, {
     todos: { value: [] }
 });
+
+for (var i = 1; i != 10; ++i) {
+    model.push(i);
+}
