@@ -19,9 +19,8 @@ var Model = {
     push: function(text) {
         this.todos.push(new Todo(text, ++this.id, false));
     },
-    pop: function(id) {
-        var item = this.find(id);
-        item && this.todos.splice(this.todos.indexOf(item), 1);
+    pop: function(item) {
+        this.todos.splice(this.todos.indexOf(item), 1);
     },
     check: function(id) {
         return this.find(id) !== null;

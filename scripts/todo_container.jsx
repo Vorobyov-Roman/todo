@@ -6,11 +6,16 @@ var Container = React.createClass({
         this.props.model.push(text);
         this.forceUpdate();
     },
-    onCheck: function() {
+    removeItem: function(item) {
+        this.props.model.pop(item);
+        this.forceUpdate();
+    },
+    checkItem: function(item) {
+        item.check();
         this.forceUpdate();
     },
     render: function() {
-        var onStatusChange = this.onCheck;
+        var self = this;
         var items = {
             done: [],
             pending: []
@@ -20,7 +25,8 @@ var Container = React.createClass({
             items[item.status ? "done" : "pending"].push(
                 <TodoItem
                     model={ item }
-                    onCheck={ onStatusChange }
+                    onCheck={ self.checkItem }
+                    onRemove={ self.removeItem }
                     key={ item.id }
                 ></TodoItem>
             );
