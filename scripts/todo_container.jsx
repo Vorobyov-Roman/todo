@@ -1,18 +1,24 @@
+//globals: cookie
+
 @include('todo_item.jsx');
 @include('todo_input.jsx');
 
 var Container = React.createClass({
+    update: function() {
+        reactCookie.save('todos', this.props.model.todos);
+        this.forceUpdate();
+    },
     addItem: function(text) {
         this.props.model.push(text);
-        this.forceUpdate();
+        this.update();
     },
     removeItem: function(item) {
         this.props.model.pop(item);
-        this.forceUpdate();
+        this.update();
     },
     checkItem: function(item) {
         item.check();
-        this.forceUpdate();
+        this.update();
     },
     render: function() {
         var self = this;
@@ -21,13 +27,13 @@ var Container = React.createClass({
             pending: []
         };
 
-        this.props.model.todos.forEach(function(item) {
+        this.props.model.todos.forEach(function(item, index) {
             items[item.status ? "done" : "pending"].push(
                 <TodoItem
                     model={ item }
                     onCheck={ self.checkItem }
                     onRemove={ self.removeItem }
-                    key={ item.id }
+                    key={ index }
                 ></TodoItem>
             );
         });
