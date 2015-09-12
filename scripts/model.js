@@ -30,7 +30,3 @@ var Model = {
 var model = Object.create(Model, {
     todos: { value: [] }
 });
-
-for (var i = 1; i != 10; ++i) {
-    model.push(i);
-}

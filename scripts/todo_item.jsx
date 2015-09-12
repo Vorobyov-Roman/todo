@@ -7,7 +7,7 @@ var TodoItem = React.createClass({
     },
     render: function() {
         return(
-            <a href="#" className="list-group-item" onClick={ this.onCheck }>
+            <a href="#" className="list-group-item my-todo-item" onClick={ this.onCheck }>
                 <span className={ this.props.model.status ? "my-todo-checked" : "" }>
                     { this.props.model.text }
                 </span>
