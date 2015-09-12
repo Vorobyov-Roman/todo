@@ -1,4 +1,4 @@
-//globals: cookie
+//globals: reactCookie
 
 @include('todo_item.jsx');
 @include('todo_input.jsx');
