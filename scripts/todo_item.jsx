@@ -1,5 +1,7 @@
 //globals: isTouch
 
+@include('util_button.jsx')
+
 var TodoItem = React.createClass({
     onCheck: function() {
         this.props.onCheck(this.props.model);
@@ -13,9 +15,7 @@ var TodoItem = React.createClass({
                 <span className={ this.props.model.status ? "my-todo-checked" : "" }>
                     { this.props.model.text }
                 </span>
-                <button type="button" className="close" aria-label="Close" onClick={ this.onRemove }>
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <UtilButton label="Close" onClick={ this.onRemove }>&times;</UtilButton>
             </a>
         )
     }
