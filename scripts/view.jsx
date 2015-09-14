@@ -1,3 +1,5 @@
+var isTouch = 'ontouchstart' in document.documentElement;
+
 @include('model.js');
 @include('todo_container.jsx');
 
