@@ -1,0 +1,16 @@
+.my-holder {
+  min-height: 100vh;
+  margin: 0 auto;
+  width: 50vw; }
+
+.my-todo-checked {
+  text-decoration: line-through; }
+
+.my-todo-item .close {
+  display: none; }
+
+.my-todo-item:hover .close {
+  display: block; }
+
+.my-util-btn {
+  margin: 0 5px; }
