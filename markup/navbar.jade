@@ -1,0 +1,48 @@
+-
+    var menuToggleBtn = {
+        'type': 'button',
+        'data-toggle': 'collapse',
+        'data-target': '#menu',
+        'aria-expanded': 'false'
+    };
+    var dropdownBtn = {
+        'data-toggle': 'dropdown',
+        'role': 'button',
+        'aria-haspopup': 'true',
+        'aria-expanded': 'false'
+    };
+
+mixin dropdown(text)
+    li.dropdown
+        a.dropdown-toggle(href= attributes.href)&attributes(dropdownBtn)= text + ' '
+            span.caret
+        ul.dropdown-menu(id = attributes.id)
+            block
+            
+
+nav.navbar.navbar-default
+    div.container-fluid
+        div.navbar-header
+            button.navbar-toggle.collapsed&attributes(menuToggleBtn)
+                span.icon-bar
+                span.icon-bar
+                span.icon-bar
+            a.navbar-brand(href="#") Todo App
+
+        div.collapse.navbar-collapse#menu
+            ul.nav.navbar-nav
+                +dropdown('Your lists')(id = 'list-menu', href = '#')
+                    li: a(href="#") Dummy
+                    li.divider(role="separator")
+                    li: a(href="#") Create new
+
+                +dropdown('Import/Export')(href = '#')
+                    li: a(href="#") Import lists
+                    li: a(href="#") Import into current item
+                    li.divider(role="separator")
+                    li: a(href="#") Export list
+                    li: a(href="#") Export current item
+
+                li: a(href="#") Help
+
+                li: a(href="#") About
