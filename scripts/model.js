@@ -1,27 +1,39 @@
-function Todo(text, status) {
-    this.text = text;
-    this.status = status;
-}
-Todo.prototype.check = function() {
-    this.status = !this.status;
-}
+var TodoProto = {
+    get completion() {
+        var total = this.children.length * 100;
+        var done = 0;
 
-var Model = {
-    push: function(text, status) {
-        this.todos.push(new Todo(text, status || false));
+        this.children.forEach(function(item) {
+            done += item.completion;
+        });
+
+        return total ? Math.floor(done / total * 100) : 0;
     },
-    pop: function(item) {
-        this.todos.splice(this.todos.indexOf(item), 1);
+    insert: function(text, val) {
+        var newItem = Object.create(TodoProto, {
+            text: { value: text },
+            completion: { value: val }
+        });
+
+        delete this.completion;
+        this.children = this.children || [];
+
+        this.children.push(newItem);
+
+        return newItem;
     }
-};
+}
 
-var model = Object.create(Model, {
-    todos: { value: [] }
-});
+var model = {
+    lists: [], //holds references to list roots
+    createList: function(title) {
+        var newList = Object.create(TodoProto, {
+            text: { value: title },
+            children: { value: [] }
+        });
 
-(function loadData() {
-    var savedTodos = reactCookie.load('todos');
-    savedTodos && savedTodos.forEach(function(item) {
-        model.todos.push(new Todo(item.text, item.status));
-    });
-})();
+        this.lists.push(newList);
+
+        return newList;
+    }
+}
