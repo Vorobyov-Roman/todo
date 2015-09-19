@@ -1,7 +1,21 @@
-.my-holder {
-  min-height: 100vh;
-  margin: 0 auto;
-  width: 50vw; }
+body {
+  height: 100vh;
+  display: block;
+  overflow: auto; }
+
+#content {
+  height: calc(100% - 72px);
+  margin: 0; }
+
+#well {
+  min-height: 100%;
+  margin: 0; }
+  #well .list-group {
+    margin: 0; }
+
+.my-tab {
+  height: 100%;
+  padding: 0; }
 
 .my-todo-checked {
   text-decoration: line-through; }
