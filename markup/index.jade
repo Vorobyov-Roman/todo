@@ -1,18 +1,38 @@
+-
+    var scripts = [
+        'http://code.jquery.com/jquery-2.1.4.js',
+        'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js',
+        'https://fb.me/react-0.13.3.js',
+        'https://cdnjs.cloudflare.com/ajax/libs/react-cookie/0.3.4/react-cookie.js'
+    ];
+    var scriptsMin = [
+        'http://code.jquery.com/jquery-2.1.4.min.js',
+        'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js',
+        'https://fb.me/react-0.13.3.min.js',
+        'https://cdnjs.cloudflare.com/ajax/libs/react-cookie/0.3.4/react-cookie.min.js'
+    ];
+    var styles = [
+        'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css',
+        'styles/styles.min.css'
+    ];
+
 doctype html
 html(lang="en")
     head
         meta(charset="UTF-8")
         title Todo App
 
-        link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css")
-        link(rel="stylesheet", href="styles/styles.min.css")
+        each style in styles
+            link(rel="stylesheet", href=style)
 
-        script(src="http://code.jquery.com/jquery-2.1.4.min.js")
-        script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js")
-        script(src="https://fb.me/react-0.13.3.min.js")
-        script(src="https://cdnjs.cloudflare.com/ajax/libs/react-cookie/0.3.4/react-cookie.min.js")
+        each link in scripts
+            script(src=link)
     body
-        include navbar.jade
+        include navbar
 
-        div#app
+        div.row#content
+            div.my-tab.col-md-3#back
+            div.my-tab.col-md-6#app
+            div.my-tab.col-md-3#forward
+
         script(src="scripts/app.min.js")

@@ -12,11 +12,14 @@
         'aria-expanded': 'false'
     };
 
+mixin caret(text)
+    =text + ' '
+    span.caret
+
 mixin dropdown(text)
     li.dropdown
-        a.dropdown-toggle(href= attributes.href)&attributes(dropdownBtn)= text + ' '
-            span.caret
-        ul.dropdown-menu(id = attributes.id)
+        a.dropdown-toggle(href!=attributes.href)&attributes(dropdownBtn): +caret(text)
+        ul.dropdown-menu(id!=attributes.id)
             block
             
 
@@ -31,12 +34,10 @@ nav.navbar.navbar-default
 
         div.collapse.navbar-collapse#menu
             ul.nav.navbar-nav
-                +dropdown('Your lists')(id = 'list-menu', href = '#')
-                    li: a(href="#") Dummy
-                    li.divider(role="separator")
+                +dropdown("Your lists")(id="list-menu", href="#")
                     li: a(href="#") Create new
 
-                +dropdown('Import/Export')(href = '#')
+                +dropdown("Import/Export")(href="#")
                     li: a(href="#") Import lists
                     li: a(href="#") Import into current item
                     li.divider(role="separator")

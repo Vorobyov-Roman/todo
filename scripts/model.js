@@ -12,7 +12,7 @@ var TodoProto = {
     insert: function(text, val) {
         var newItem = Object.create(TodoProto, {
             text: { value: text },
-            completion: { value: val }
+            completion: { value: val || 0 }
         });
 
         delete this.completion;
@@ -35,5 +35,17 @@ var model = {
         this.lists.push(newList);
 
         return newList;
+    },
+    load: function() {
+        //todo: load from cookies
+
+        //temp
+        var list = this.createList('Test');
+
+        for (var i = 0; i != 20; ++i) {
+            list.insert(i.toString());
+        }
+
+        return list;
     }
 }

@@ -3,7 +3,21 @@ var isTouch = 'ontouchstart' in document.documentElement;
 @include('model.js');
 @include('container.jsx');
 
-React.render(
-    <Container model={ model }></Container>,
-    document.getElementById('app')
-);
+(function loadList() {
+    var currentList = model.load();
+
+    React.render(
+        <Container id="well" model={ currentList }></Container>,
+        $('#app')[0]
+    );
+})();
+
+(function fillMenu() {
+    var listMenu = '';
+    model.lists.forEach(function(list) {
+        listMenu += '<li><a href="#">' + list.text + '</a></li>';
+    });
+    listMenu += '<li class="divider" role="separator"></li>';
+    
+    $('#list-menu').prepend(listMenu);
+})();
