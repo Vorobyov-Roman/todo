@@ -42,16 +42,30 @@ var model = {
         //temp
         var list = this.createList('Test');
 
-        list.insert('Lorem ipsum dolor sit amet, fringilla et dolor, lacus pharetra duis, et voluptatem wisi ut eu molestie aenean, erat orci. Nonummy quam condimentum eget aliquam lorem tincidunt, eget quibusdam elit id quis, exercitation potenti malesuada. Mi rhoncus eu tristique urna id, metus eros pede quis cursus erat fringilla. Et id phasellus mi, sed ut, turpis tortor viverra, eros accumsan suspendisse nullam, urna nibh fusce donec ut at. Ac odio. Lorem in venenatis elementum duis eu phasellus. Amet ac lorem vestibulum, eget taciti est dolor.');
+        var python = list.insert('Learn Python');
+            python.insert('The language');
+            python.insert('App Engine');
 
-        for (var i = 1; i != 10; ++i) {
-            list.insert(i.toString());
-        }
-        list.children[0].insert('ayy');
-        list.children[0].insert('lmao');
+        var web = list.insert('Web');
+            web.insert('HTML');
+            var css = web.insert('CSS');
+                css.insert('Basics');
+                css.insert('SASS');
+            var js = web.insert('JavaScript');
+                js.insert('The language');
+                js.insert('Standart library');
+                var fw = js.insert('Frameworks');
+                    fw.insert('AngularJS');
+                    fw.insert('ReactJS');
 
-        list.children[5].insert('top');
-        list.children[5].insert('kek');
+//        for (var i = 0; i != 10; ++i) {
+//            list.insert(i.toString());
+//        }
+//        list.children[0].insert('ayy');
+//        list.children[0].insert('lmao');
+//
+//        list.children[5].insert('top');
+//        list.children[5].insert('kek');
 
         return list;
     }

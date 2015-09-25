@@ -6,7 +6,7 @@ var isTouch = 'ontouchstart' in document.documentElement;
 (function loadList() {
     var currentList = model.load();
 
-    if (! $('#app')[0]) {
+    if (!$('#app')) {
         return;
     }
 
