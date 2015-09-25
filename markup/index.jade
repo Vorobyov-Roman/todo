@@ -12,7 +12,7 @@
         'https://cdnjs.cloudflare.com/ajax/libs/react-cookie/0.3.4/react-cookie.min.js'
     ];
     var styles = [
-        'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css',
+        'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css',
         'styles/styles.min.css'
     ];
 
@@ -30,9 +30,6 @@ html(lang="en")
     body
         include navbar
 
-        div.row#content
-            div.my-tab.col-md-3#back
-            div.my-tab.col-md-6#app
-            div.my-tab.col-md-3#forward
+        div#app
 
         script(src="scripts/app.min.js")

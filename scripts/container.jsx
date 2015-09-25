@@ -2,16 +2,14 @@
 
 var Container = React.createClass({
     render: function() {
-        var items = this.props.model.children.map(function(item) {
-            return <TodoItem model={ item }>{ item.text }</TodoItem>
+        var items = this.props.model.children.map(function(item, index) {
+            return <TodoItem key={ index } model={ item }></TodoItem>
         });
 
         return(
-            <div className="well my-well" id={ this.props.id }>
-                <div className="list-group">
-                    { items }
-                </div>
-            </div>
+            <ul className="list-group" id="root">
+                { items }
+            </ul>
         );
     }
 });

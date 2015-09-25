@@ -6,8 +6,12 @@ var isTouch = 'ontouchstart' in document.documentElement;
 (function loadList() {
     var currentList = model.load();
 
+    if (! $('#app')[0]) {
+        return;
+    }
+
     React.render(
-        <Container id="well" model={ currentList }></Container>,
+        <Container model={ currentList }></Container>,
         $('#app')[0]
     );
 })();

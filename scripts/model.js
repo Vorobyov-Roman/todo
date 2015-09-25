@@ -42,9 +42,16 @@ var model = {
         //temp
         var list = this.createList('Test');
 
-        for (var i = 0; i != 20; ++i) {
+        list.insert('Lorem ipsum dolor sit amet, fringilla et dolor, lacus pharetra duis, et voluptatem wisi ut eu molestie aenean, erat orci. Nonummy quam condimentum eget aliquam lorem tincidunt, eget quibusdam elit id quis, exercitation potenti malesuada. Mi rhoncus eu tristique urna id, metus eros pede quis cursus erat fringilla. Et id phasellus mi, sed ut, turpis tortor viverra, eros accumsan suspendisse nullam, urna nibh fusce donec ut at. Ac odio. Lorem in venenatis elementum duis eu phasellus. Amet ac lorem vestibulum, eget taciti est dolor.');
+
+        for (var i = 1; i != 10; ++i) {
             list.insert(i.toString());
         }
+        list.children[0].insert('ayy');
+        list.children[0].insert('lmao');
+
+        list.children[5].insert('top');
+        list.children[5].insert('kek');
 
         return list;
     }

@@ -1,30 +1,28 @@
-body {
-  height: 100vh;
-  display: block;
-  overflow: auto; }
+#root {
+  width: 75%;
+  min-width: 400px;
+  margin: 0 auto; }
 
-#content {
-  height: calc(100% - 72px);
+li.list-group-item {
+  overflow: hidden; }
+
+.list-group {
   margin: 0; }
 
-#well {
-  min-height: 100%;
-  margin: 0; }
-  #well .list-group {
-    margin: 0; }
-
-.my-tab {
-  height: 100%;
+.list-group-item {
   padding: 0; }
 
-.my-todo-checked {
-  text-decoration: line-through; }
+.my-item-body {
+  padding: 10px 15px; }
 
-.my-todo-item .close {
-  display: none; }
+.my-controls {
+  position: absolute;
+  right: -1px;
+  top: -35px; }
 
-.my-todo-item:hover .close {
-  display: block; }
+.my-control-first {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 4px; }
 
-.my-util-btn {
-  margin: 0 5px; }
+.my-control-last {
+  border-radius: 0; }
