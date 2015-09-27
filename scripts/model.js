@@ -70,3 +70,5 @@ var model = {
         return list;
     }
 }
+
+export default model;

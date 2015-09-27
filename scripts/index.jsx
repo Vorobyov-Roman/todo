@@ -1,18 +1,16 @@
-var isTouch = 'ontouchstart' in document.documentElement;
-
-@include('model.js');
-@include('container.jsx');
+import model from './model';
+import Container from './container';
 
 (function loadList() {
     var currentList = model.load();
 
-    if (!$('#app')) {
+    if (!$('#list')[0]) {
         return;
     }
 
     React.render(
         <Container model={ currentList }></Container>,
-        $('#app')[0]
+        $('#list')[0]
     );
 })();
 

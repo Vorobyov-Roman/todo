@@ -28,8 +28,10 @@ html(lang="en")
         each link in scripts
             script(src=link)
     body
-        include navbar
-
-        div#app
+        div#container
+            div.panel.panel-primary#root
+                div.panel-heading#list-name
+                    | Ayy
+                div.panel-body#list
 
         script(src="scripts/app.min.js")

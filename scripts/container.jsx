@@ -1,15 +1,15 @@
-@include('item.jsx');
+import TodoItem from './item';
 
-var Container = React.createClass({
-    render: function() {
+export default class Container extends React.Component {
+    render() {
         var items = this.props.model.children.map(function(item, index) {
             return <TodoItem key={ index } model={ item }></TodoItem>
         });
 
         return(
-            <ul className="list-group" id="root">
+            <ul className="list-group">
                 { items }
             </ul>
         );
     }
-});
+}

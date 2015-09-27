@@ -1,36 +1,51 @@
-var TodoItem = React.createClass({
-    getInitialState: function() {
-        return {
+import Controls from './controls';
+
+export default class TodoItem extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
             expanded: false,
             hoverable: true
         };
-    },
-    toggleChildren: function() {
-        this.setState({ expanded: !this.state.expanded });
+    }
+    toggleChildren() {
         $(React.findDOMNode(this.refs.children)).collapse('toggle');
-        this.forceUpdate();
-    },
-    onHover: function(enter) {
+
+        this.setState({ expanded: !this.state.expanded });
+    }
+    onHover(enter) {
         if (this.state.hoverable) {
             $(React.findDOMNode(this.refs.controls)).stop().animate({
                 top: enter ? '-1px' : '-35px'
             }, 100);
         }
-    },
-    render: function() {
-        var toggleButton = null;
+    }
+    allowHover(value) {
+        this.setState({ hoverable: value });
+    }
+    render() {
         var childrenList = null;
+        var buttons = [
+            {
+                text: 'Remove',
+                style: 'btn-danger'
+            },
+            {
+                text: 'Insert'
+            },
+            {
+                text: 'Check'
+            }
+        ];
 
         if (this.props.model.children) {
             //toggleButton
-            var body = this.state.expanded ?
-                <span>Collapse</span> :
-                <span>Expand <span className="badge">{ this.props.model.children.length }</span></span>
-
-            toggleButton =
-            <button className="btn btn-default" type="button" onClick={ this.toggleChildren }>
-                { body }
-            </button>
+            buttons.splice(0, 2, {
+                text: this.state.expanded ?
+                    <span>Collapse</span> :
+                    <span>Expand <span className="badge">{ this.props.model.children.length }</span></span>,
+                handler: this.toggleChildren.bind(this)
+            });
 
             //childrenList
             var children = this.props.model.children.map(function(item, index) {
@@ -41,8 +56,8 @@ var TodoItem = React.createClass({
                 <div
                     className="collapse"
                     ref="children"
-                    onMouseOver={ this.setState.bind(this, { hoverable: false }) }
-                    onMouseOut={ this.setState.bind(this, { hoverable: true }) }
+                    onMouseEnter={ this.allowHover.bind(this, false) }
+                    onMouseLeave={ this.allowHover.bind(this, true) }
                 >
                     <ul className="list-group">{ children }</ul>
                 </div>
@@ -54,14 +69,7 @@ var TodoItem = React.createClass({
                 onMouseOver={ this.onHover.bind(this, true) }
                 onMouseOut={ this.onHover.bind(this, false) }
             >
-                <div className="my-controls" ref="controls">
-                    <div className="btn-group">
-                        <button className="btn btn-danger my-control-first" type="button">Remove</button>
-                        { toggleButton }
-                        <button className="btn btn-default" type="button">Insert</button>
-                        <button className="btn btn-default my-control-last" type="button">Check</button>
-                    </div>
-                </div>
+                <Controls controls={ buttons } ref="controls"></Controls>
 
                 { this.props.model.text }
 
@@ -69,4 +77,4 @@ var TodoItem = React.createClass({
             </li>
         );
     }
-});
+}
