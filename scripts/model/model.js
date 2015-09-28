@@ -12,10 +12,13 @@ var TodoProto = {
     insert: function(text, val) {
         var newItem = Object.create(TodoProto, {
             text: { value: text },
-            completion: { value: val || 0 }
+            completion: {
+                value: val || 0,
+                configurable: true
+            }
         });
 
-        delete this.completion;
+        console.log(text, delete this.completion);
         this.children = this.children || [];
 
         this.children.push(newItem);
@@ -50,13 +53,13 @@ var model = {
             web.insert('HTML');
             var css = web.insert('CSS');
                 css.insert('Basics');
-                css.insert('SASS');
+                css.insert('SASS', 100);
             var js = web.insert('JavaScript');
-                js.insert('The language');
+                js.insert('The language', 100);
                 js.insert('Standart library');
                 var fw = js.insert('Frameworks');
                     fw.insert('AngularJS');
-                    fw.insert('ReactJS');
+                    fw.insert('ReactJS', 100);
 
 //        for (var i = 0; i != 10; ++i) {
 //            list.insert(i.toString());

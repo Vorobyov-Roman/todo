@@ -17,8 +17,11 @@ var director = {
         this.prev && this.prev.showControls(true);
     },
 
-    setCursor(curr) {
+    removeCursor() {
         this._edited && this._edited.setState({ edited: false });
+    },
+    setCursor(curr) {
+        this.removeCursor();
         curr.setState({ edited: true });
         this._edited = curr;
     }

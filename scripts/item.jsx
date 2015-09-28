@@ -7,8 +7,8 @@ export default class TodoItem extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            expanded: false,
-            forced: false,
+            expanded: !props.model.children,
+            forced: !props.model.children,
             edited: props.edited || false
         };
     }
@@ -28,17 +28,20 @@ export default class TodoItem extends React.Component {
     }
 
     setCursor() {
-        this.props.model.children && this.showChildren(true);
+        this.showChildren(true);
         director.setCursor(this);
     }
     insert(text) {
         this.props.model.insert(text);
         this.forceUpdate();
+        this.showChildren(true);
     }
 
     render() {
-        var childrenList = null;
-        var input = null;
+        var input = this.state.edited ? <Input onSubmit={ this.insert.bind(this) }></Input> : null;
+        var label = this.props.model.children ?
+            <span> <span className="label label-primary">{ this.props.model.completion + '%' }</span></span> :
+            null;
         var buttons = [
             {
                 text: 'Remove',
@@ -54,23 +57,15 @@ export default class TodoItem extends React.Component {
         ];
 
         if (this.props.model.children) {
-            //toggleButton
             buttons.splice(2, 0, {
                 text: this.state.expanded ?
                     <span>Collapse</span> :
                     <span>Expand <span className="badge">{ this.props.model.children.length }</span></span>,
                 handler: this.toggleChildren.bind(this)
             });
-
-            //childrenList
-            childrenList = <div className="collapse" ref="children">
-                <List items={ this.props.model.children }></List>
-            </div>
         }
 
-        if (this.state.edited) {
-            input = <Input onSubmit={ this.insert.bind(this) }></Input>
-        }
+        var style = this.state.forced ? 'collapse in' : 'collapse';
 
         return(
             <li
@@ -81,10 +76,12 @@ export default class TodoItem extends React.Component {
                 <Controls controls={ buttons } ref="controls"></Controls>
 
                 { this.props.model.text }
+                { label }
 
-                { childrenList }
-
-                { input }
+                <div className={ style } ref="children">
+                    <List items={ this.props.model.children }></List>
+                    { input }
+                </div>
             </li>
         );
     }
