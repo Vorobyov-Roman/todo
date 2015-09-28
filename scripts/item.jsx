@@ -1,37 +1,52 @@
 import Controls from './controls';
+import List from './list';
+import Input from './input';
+import director from './model/director';
 
 export default class TodoItem extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             expanded: false,
-            hoverable: true
+            forced: false,
+            edited: props.edited || false
         };
     }
-    toggleChildren() {
-        $(React.findDOMNode(this.refs.children)).collapse('toggle');
 
-        this.setState({ expanded: !this.state.expanded });
+    showChildren(show) {
+        $(React.findDOMNode(this.refs.children)).collapse(show ? 'show' : 'hide');
+        this.setState({ expanded: show });
     }
-    onHover(enter) {
-        if (this.state.hoverable) {
-            $(React.findDOMNode(this.refs.controls)).stop().animate({
-                top: enter ? '-1px' : '-35px'
-            }, 100);
-        }
+    toggleChildren() {
+        this.showChildren(!this.state.expanded);
     }
-    allowHover(value) {
-        this.setState({ hoverable: value });
+
+    showControls(enter) {
+        $(React.findDOMNode(this.refs.controls)).stop().animate({
+            top: enter ? '-1px' : '-35px'
+        }, 100);
     }
+
+    setCursor() {
+        this.props.model.children && this.showChildren(true);
+        director.setCursor(this);
+    }
+    insert(text) {
+        this.props.model.insert(text);
+        this.forceUpdate();
+    }
+
     render() {
         var childrenList = null;
+        var input = null;
         var buttons = [
             {
                 text: 'Remove',
                 style: 'btn-danger'
             },
             {
-                text: 'Insert'
+                text: 'Insert',
+                handler: this.setCursor.bind(this)
             },
             {
                 text: 'Check'
@@ -40,7 +55,7 @@ export default class TodoItem extends React.Component {
 
         if (this.props.model.children) {
             //toggleButton
-            buttons.splice(0, 2, {
+            buttons.splice(2, 0, {
                 text: this.state.expanded ?
                     <span>Collapse</span> :
                     <span>Expand <span className="badge">{ this.props.model.children.length }</span></span>,
@@ -48,32 +63,28 @@ export default class TodoItem extends React.Component {
             });
 
             //childrenList
-            var children = this.props.model.children.map(function(item, index) {
-                return <TodoItem key={ index } model={ item }></TodoItem>
-            });
+            childrenList = <div className="collapse" ref="children">
+                <List items={ this.props.model.children }></List>
+            </div>
+        }
 
-            childrenList =
-                <div
-                    className="collapse"
-                    ref="children"
-                    onMouseEnter={ this.allowHover.bind(this, false) }
-                    onMouseLeave={ this.allowHover.bind(this, true) }
-                >
-                    <ul className="list-group">{ children }</ul>
-                </div>
+        if (this.state.edited) {
+            input = <Input onSubmit={ this.insert.bind(this) }></Input>
         }
 
         return(
             <li
                 className="list-group-item"
-                onMouseOver={ this.onHover.bind(this, true) }
-                onMouseOut={ this.onHover.bind(this, false) }
+                onMouseEnter={ director.hover.bind(director, this) }
+                onMouseLeave={ director.unhover.bind(director) }
             >
                 <Controls controls={ buttons } ref="controls"></Controls>
 
                 { this.props.model.text }
 
                 { childrenList }
+
+                { input }
             </li>
         );
     }

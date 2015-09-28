@@ -1,16 +1,16 @@
-import model from './model';
+import model from './model/model';
 import Container from './container';
 
 (function loadList() {
     var currentList = model.load();
 
-    if (!$('#list')[0]) {
+    if (!$('#app')[0]) {
         return;
     }
 
     React.render(
         <Container model={ currentList }></Container>,
-        $('#list')[0]
+        $('#app')[0]
     );
 })();
 

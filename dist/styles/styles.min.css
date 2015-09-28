@@ -7,14 +7,14 @@
   min-height: 100vh;
   padding-top: 20px; }
 
-#list-name {
+.panel-heading {
   text-align: center; }
-
-.panel {
-  margin: 0; }
 
 .list-group {
   margin-bottom: 0; }
+
+.input-group {
+  margin-top: 10px; }
 
 li.list-group-item {
   overflow: hidden; }
