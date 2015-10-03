@@ -14,7 +14,6 @@ export default class Input extends React.Component {
             <form className="input-group" onSubmit={ this.onSubmit.bind(this) }>
                 <input
                     className="form-control"
-                    id="input"
                     type="text"
                     placeholder="New item"
                     ref="newTodo"

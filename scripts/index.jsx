@@ -1,25 +1,22 @@
-import model from './model/model';
+import TodoList from './model/model';
 import Container from './container';
 
-(function loadList() {
-    var currentList = model.load();
+var list = new TodoList('Test List');
+    var python = list.insert('Learn Python');
+        python.insert('The language');
+        python.insert('App Engine');
 
-    if (!$('#app')[0]) {
-        return;
-    }
+    var web = list.insert('Web');
+        web.insert('HTML');
+        var css = web.insert('CSS');
+            css.insert('Basics').check(true);
+            css.insert('Advanced');
+            css.insert('SASS').check(true);
+        var js = web.insert('JavaScript');
+            js.insert('The language').check(true);
+            js.insert('Standart library');
+            var fw = js.insert('Frameworks');
+                fw.insert('AngularJS');
+                fw.insert('ReactJS');
 
-    React.render(
-        <Container model={ currentList }></Container>,
-        $('#app')[0]
-    );
-})();
-
-(function fillMenu() {
-    var listMenu = '';
-    model.lists.forEach(function(list) {
-        listMenu += '<li><a href="#">' + list.text + '</a></li>';
-    });
-    listMenu += '<li class="divider" role="separator"></li>';
-    
-    $('#list-menu').prepend(listMenu);
-})();
+React.render(<Container model={ list }></Container>, $('#app')[0]);
