@@ -2,7 +2,8 @@ import classNames from 'classnames';
 
 export default class Controls extends React.Component {
     render() {
-        var buttons = this.props.buttons.map(function(item, index, list) {
+        var buttons = this.props.buttons.map((item, index, list) => {
+            //apply my-control-first and my-control-last to the first and last items respectively
             var style = classNames({
                 'btn': true,
                 'my-control-first': index === 0,

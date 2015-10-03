@@ -2,6 +2,8 @@ export default class TodoItem {
     constructor(text, parent = null) {
         this.text = text;
         this.children = [];
+
+        //indicates item's completion, when no children are present
         this._state = 0;
     }
 
@@ -13,8 +15,10 @@ export default class TodoItem {
     remove(item) {
         this.children.splice(this.children.indexOf(item), 1);
 
+        //upon removal of the last child, this._state becomes relevant again
+        //set this._state to that of item
         if (!this.children.length) {
-            this._state = item._state === 100 ? 100 : 0;
+            this._state = item.checked ? 100 : 0;
         }
     }
     check(state) {

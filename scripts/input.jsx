@@ -15,7 +15,7 @@ export default class Input extends React.Component {
                 <input
                     className="form-control"
                     type="text"
-                    placeholder="New item"
+                    placeholder="New task"
                     ref="newTodo"
                 />
                 <span className="input-group-btn"> 

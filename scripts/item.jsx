@@ -15,11 +15,13 @@ export default class TodoItem extends React.Component {
             edited: false
         };
     }
+    //Recursively updates all the items up the hierarchy
     updateParent() {
-        this.props.parent ? this.props.parent.updateParent() : this.forceUpdate();
+        this.props.parent.updateParent();
     }
 
     setCursor() {
+        //if pending items arent shown, show them
         if (!this.state.pending) {
             this.showPending(true);
         }
@@ -58,17 +60,25 @@ export default class TodoItem extends React.Component {
                 this.props.model.children.filter(item => item.completion === 100) :
                 null
         };
+
+        //item's text. if the item contains children, also includes completion percentage
         var label = this.props.model.children.length ?
             <span>
                 <span>{ this.props.model.text } </span>
                 <span className="label label-primary">{ this.props.model.completion + '%' }</span>
             </span> :
             <span>{ this.props.model.text }</span>;
+
+        //input field is shown only when the cursor is set on the item
         var input = this.state.edited ? <Input onSubmit={ this.insert.bind(this) }></Input> : null;
+
+        //green color for completed tasks
         var style = classNames({
             'list-group-item': true,
             'my-done': this.props.model.checked
         });
+
+        //functional buttons
         var buttons = [
             {
                 text: 'Remove',
@@ -85,6 +95,7 @@ export default class TodoItem extends React.Component {
             }
         ];
 
+        //collapse/expand pending items if any
         if (children.pending && children.pending.length) {
             buttons.splice(2, 0, {
                 text: this.state.pending ?
@@ -93,6 +104,8 @@ export default class TodoItem extends React.Component {
                 handler: this.showPending.bind(this, !this.state.pending)
             });
         }
+
+        //collapse/expand completed items if any
         if (children.done && children.done.length) {
             buttons.splice(2, 0, {
                 text: this.state.done ?

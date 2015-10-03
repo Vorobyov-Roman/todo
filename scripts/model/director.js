@@ -43,6 +43,10 @@ export var cursorDirector = {
         this.setState({ edited: state });
     },
 
+    init(item) {
+        this._current = item;
+    },
+
     set(item) {
         //hide input on the previous item, if exists
         this._current && this._setCursor.call(this._current, false);

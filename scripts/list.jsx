@@ -7,12 +7,7 @@ export default class List extends React.Component {
         }
 
         var items = this.props.items.map((item, index) =>
-            <TodoItem
-                model={ item }
-                parent={ this.props.parent }
-                key={ index }
-            >
-            </TodoItem>
+            <TodoItem model={ item } parent={ this.props.parent } key={ index }></TodoItem>
         );
 
         return (
