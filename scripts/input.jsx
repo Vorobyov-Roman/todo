@@ -1,5 +1,5 @@
-var Input = React.createClass({
-    onSubmit: function(e) {
+export default class Input extends React.Component {
+    onSubmit(e) {
         e.preventDefault();
 
         var text = React.findDOMNode(this.refs.newTodo).value.trim();
@@ -8,16 +8,15 @@ var Input = React.createClass({
         if (text) {
             this.props.onSubmit(text);
         }
-    },
-    render: function() {
+    }
+    render() {
         return(
-            <form className="input-group" onSubmit={ this.onSubmit }>
+            <form className="input-group" onSubmit={ this.onSubmit.bind(this) }>
                 <input
-                    type="text"
                     className="form-control"
-                    placeholder="New item"
+                    type="text"
+                    placeholder="New task"
                     ref="newTodo"
-                    autofocus={ true }
                 />
                 <span className="input-group-btn"> 
                     <button className="btn btn-default" type="submit">Add</button>
@@ -25,4 +24,4 @@ var Input = React.createClass({
             </form>
         )
     }
-});
+}

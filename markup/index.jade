@@ -1,0 +1,36 @@
+-
+    var scripts = [
+        'http://code.jquery.com/jquery-2.1.4.js',
+        'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js',
+        //'https://fb.me/react-0.13.3.js',
+        'https://cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react.min.js',
+        'https://cdnjs.cloudflare.com/ajax/libs/react-cookie/0.3.4/react-cookie.js'
+    ];
+    var scriptsMin = [
+        'http://code.jquery.com/jquery-2.1.4.min.js',
+        'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js',
+        'https://fb.me/react-0.13.3.min.js',
+        'https://cdnjs.cloudflare.com/ajax/libs/react-cookie/0.3.4/react-cookie.min.js'
+    ];
+    var styles = [
+        'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css',
+        'styles/styles.min.css'
+    ];
+
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        title Todo App
+
+        each style in styles
+            link(rel="stylesheet", href=style)
+
+        each link in scripts
+            script(src=link)
+    body
+        div#app
+
+        include modals
+
+        script(src="scripts/app.min.js")

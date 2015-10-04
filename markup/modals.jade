@@ -1,0 +1,31 @@
+mixin modal(title, close)
+    div.modal(id!=attributes.id, role="dialog")
+        div.modal-dialog(role="document")
+            div.modal-content
+                div.modal-header
+                    button.close(type="button", data-dismiss="modal"): span &times;
+                    h4.modal-title= title
+    
+                div.modal-body
+                    block
+    
+                div.modal-footer
+                    button.btn.btn-default(type="button", data-dismiss="modal")= close
+
+mixin tip
+    div.alert.alert-info(id!=attributes.id)
+        block
+
+
++modal("Help", "Got it")#help-modal
+    +tip Use input field to add new tasks to the list
+    +tip Hover over elements to toggle their methods
+    +tip 'Remove' button completely removes item from the list
+    +tip 'Insert' button brings the input field to the item, which allows you to add sub-tasks to it. Click on 'Your tasks' to bring the input form to the root of the list
+    +tip 'Expand/Collapse' button toggles sub-tasks that haven't yet been completed. It also shows its quantity
+    +tip 'Check/Uncheck' button toggles the state of the task. Completed and pending items are stored in their respective lists
+    +tip#last-tip 'Show done/Hide done' button toggles sub-tasks that have been completed. It also shows its quantity. It is only shown if that item has completed tasks
+
++modal("Project's repo", "Close")#about-modal
+    a.thumbnail(href="https://github.com/Vorobyov-Roman/todo")
+        img(src="https://assets-cdn.github.com/images/modules/logos_page/GitHub-Mark.png")
