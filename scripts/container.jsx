@@ -19,7 +19,7 @@ export default class Container extends React.Component {
 
     insert(text) {
         this.props.model.insert(text);
-        this.forceUpdate();
+        this.updateParent();
     }
 
     showInfo() {
