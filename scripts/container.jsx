@@ -3,6 +3,7 @@ import Controls from './controls';
 import ItemList from './list';
 import Input from './input';
 import TitleButton from './title_button';
+import cookies from 'js-cookie';
 
 export default class Container extends React.Component {
     constructor(props) {
@@ -13,7 +14,7 @@ export default class Container extends React.Component {
         cursorDirector.init(this);
     }
     updateParent() {
-        document.cookie = JSON.stringify(this.props.model);
+        cookies.set('model', this.props.model);
         this.forceUpdate();
     }
 
