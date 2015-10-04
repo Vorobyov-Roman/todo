@@ -31,6 +31,17 @@ export var hoverDirector = {
 
         //show controls of the parent, if exists
         this._hovered.length && this._showControls.call(this._hovered.slice(-1)[0], true);
+    },
+
+    set(item) {
+        this.reset();
+
+        this._hovered.push(item);
+        this._showControls.call(item, true);
+    },
+
+    reset() {
+        this._hovered.length && this._showControls.call(this._hovered.pop(), false);
     }
 };
 
@@ -58,3 +69,5 @@ export var cursorDirector = {
         this._setCursor.call(this._current, true);
     }
 };
+
+export var isTouch = 'ontouchstart' in document.documentElement;

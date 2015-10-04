@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { hoverDirector, cursorDirector } from './model/director';
+import { hoverDirector, cursorDirector, isTouch } from './model/director';
 import Controls from './controls';
 import ItemList from './list';
 import Input from './input';
@@ -53,10 +53,10 @@ export default class TodoItem extends React.Component {
 
     render() {
         var children = {
-            pending: this.props.model.children ?
+            pending: this.props.model.children.length ?
                 this.props.model.children.filter(item => item.completion !== 100) :
                 null,
-            done: this.props.model.children ?
+            done: this.props.model.children.length ?
                 this.props.model.children.filter(item => item.completion === 100) :
                 null
         };
@@ -77,6 +77,13 @@ export default class TodoItem extends React.Component {
             'list-group-item': true,
             'my-done': this.props.model.checked
         });
+
+        //shorthand for mouse event handlers
+        var events = {
+            onMouseEnter: hoverDirector.push.bind(hoverDirector, this),
+            onMouseLeave: hoverDirector.pop.bind(hoverDirector),
+            onClick: hoverDirector[this.state.hovered ? 'reset' : 'set'].bind(hoverDirector, this)
+        };
 
         //functional buttons
         var buttons = [
@@ -118,8 +125,9 @@ export default class TodoItem extends React.Component {
         return (
             <li
                 className={ style }
-                onMouseEnter={ hoverDirector.push.bind(hoverDirector, this) }
-                onMouseLeave={ hoverDirector.pop.bind(hoverDirector) }
+                onMouseEnter={ e => { !isTouch && events.onMouseEnter(); e.stopPropagation(); } }
+                onMouseLeave={ e => { !isTouch && events.onMouseLeave(); e.stopPropagation(); } }
+                onClick={ e => { isTouch && events.onClick(); e.stopPropagation(); } }
             >
                 <Controls buttons={ buttons } ref="controls"></Controls>
 

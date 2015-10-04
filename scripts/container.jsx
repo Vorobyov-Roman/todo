@@ -1,4 +1,4 @@
-import { hoverDirector, cursorDirector } from './model/director';
+import { hoverDirector, cursorDirector, isTouch } from './model/director';
 import Controls from './controls';
 import ItemList from './list';
 import Input from './input';
@@ -13,6 +13,7 @@ export default class Container extends React.Component {
         cursorDirector.init(this);
     }
     updateParent() {
+        document.cookie = JSON.stringify(this.props.model);
         this.forceUpdate();
     }
 
@@ -33,17 +34,29 @@ export default class Container extends React.Component {
             <Input onSubmit={ this.insert.bind(this) }></Input> :
             null;
 
+        var children = {
+            pending: this.props.model.children.length ?
+                this.props.model.children.filter(item => item.completion !== 100) :
+                null,
+            done: this.props.model.children.length ?
+                this.props.model.children.filter(item => item.completion === 100) :
+                null
+        };
+
         return (
-            <div id="container">
+            <div id="container" onClick={ e => { isTouch && hoverDirector.reset(); } }>
                 <div className="panel panel-primary" id="root">
                     <div className="panel-heading">
                         <TitleButton onClick={ cursorDirector.set.bind(cursorDirector, this) }>
-                            { this.props.model.text }
+                            Your tasks
                         </TitleButton>
                     </div>
                     <div className="panel-body">
-                        <ItemList items={ this.props.model.children } parent={ this }></ItemList>
+                        <ItemList items={ children.pending } parent={ this }></ItemList>
                         { input }
+                        <div id="my-root-done">
+                            <ItemList items={ children.done } parent={ this }></ItemList>
+                        </div>
                     </div>
                     <div className="panel-footer">
                         <p className="bg-primary">

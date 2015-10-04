@@ -1,10 +1,10 @@
 export default class TodoItem {
-    constructor(text, parent = null) {
+    constructor(text, state = 0, children = []) {
         this.text = text;
-        this.children = [];
+        this.children = children.map(raw => new TodoItem(raw.text, raw._state, raw.children));
 
         //indicates item's completion, when no children are present
-        this._state = 0;
+        this._state = state;
     }
 
     insert(text) {
