@@ -1,6 +1,6 @@
 mixin modal(title, close)
     div.modal(id!=attributes.id, role="dialog")
-        div.modal-dialog(role="document", class!= attributes.class)
+        div.modal-dialog(role="document")
             div.modal-content
                 div.modal-header
                     button.close(type="button", data-dismiss="modal"): span &times;
@@ -26,11 +26,6 @@ mixin tip
     +tip 'Check/Uncheck' button toggles the state of the task. Completed and pending items are stored in their respective lists
     +tip#last-tip 'Show done/Hide done' button toggles sub-tasks that have been completed. It also shows its quantity. It is only shown if that item has completed tasks
 
-+modal("The following technologies were used", "Close").modal-lg#about-modal
-    div.row
-        div.col-md-6
-            a.thumbnail(href="https://facebook.github.io/react/")
-                img(src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/React.js_logo.svg/2000px-React.js_logo.svg.png")
-        div.col-md-6
-            a.thumbnail(href="http://getbootstrap.com/")
-                img(src="https://cdn.evbuc.com/eventlogos/12632461/screenshot20140131at3.32.00pm.png")
++modal("Project's repo", "Close")#about-modal
+    a.thumbnail(href="https://github.com/Vorobyov-Roman/todo")
+        img(src="https://assets-cdn.github.com/images/modules/logos_page/GitHub-Mark.png")
